@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public int damage = 1;
     public static PlayerController Instance;
     public Vector3 bulletOffset;
+    public bool canShoot = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour
             sizeIncrease();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canShoot == true)
         {
             shootBullets();
         }
@@ -53,7 +55,13 @@ public class PlayerController : MonoBehaviour
 
     void shootBullets()
     {
-        Instantiate(bulletPrefab, bulletOffset, bulletPrefab.transform.rotation);
+        if(canShoot == true)
+        {
+            Instantiate(bulletPrefab, bulletOffset, bulletPrefab.transform.rotation);
+            canShoot = false;
+        }
+        
+        canShoot = true;
     }
 
 
