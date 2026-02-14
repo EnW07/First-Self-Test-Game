@@ -9,19 +9,28 @@ public class DetectCollisions : MonoBehaviour
     private PlayerHealth playerHealthScript;
     private ScoreManager scoreManager;
     private BossHealth bossHealthScript;
+    private GameManager gameManager;
+    private PlayerController playerController;
 
+
+    private void Start()
+    {
+        playerHealthScript = FindFirstObjectByType<PlayerHealth>();
+        scoreManager = FindFirstObjectByType<ScoreManager>();
+        bossHealthScript = FindFirstObjectByType<BossHealth>();
+        gameManager = FindFirstObjectByType<GameManager>();
+        playerController = FindFirstObjectByType<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if (gameObject.transform.position.y >= borderMax.y)
         {
-            Debug.Log("yo");
             transform.position = borderMax;
         }
         else if (gameObject.transform.position.y <= borderMin.y)
         {
-            Debug.Log("youltra");
             transform.position = borderMin;
         }
     }
@@ -31,7 +40,7 @@ public class DetectCollisions : MonoBehaviour
     {
         if (gameObject.CompareTag("Player"))
         {
-            playerHealthScript.PlayerHealthCounter(other);
+            gameManager.TakeDamage(playerController.damage);
         }
         else if (other.gameObject.CompareTag("Bullet") && !gameObject.CompareTag("Player"))
         {

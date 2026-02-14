@@ -9,28 +9,8 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     public Button startButton;
     public TextMeshProUGUI titleText;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        player = GameObject.Find("Player");
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            Heal(5);
-        }else if(Input.GetKeyDown(KeyCode.V))
-        {
-            takeDamage(10);
-            checkIfDead(player);
-        }
-
-    }
-
-
-    private void takeDamage(float healthDamage)
+    public void TakeDamage(float healthDamage)
     {
         healthAmount -= healthDamage;
         healthBar.fillAmount = healthAmount / 100f;
@@ -38,7 +18,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void Heal(float healthHeal)
+    public void Heal(float healthHeal)
     {
         healthAmount += healthHeal;
         healthAmount = Mathf.Clamp(healthAmount, 0, 100);
@@ -46,7 +26,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void checkIfDead(GameObject player)
+    public void CheckIfDead(GameObject player)
     {
         if(healthAmount <= 0)
         {

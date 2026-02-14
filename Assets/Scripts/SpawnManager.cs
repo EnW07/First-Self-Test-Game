@@ -18,15 +18,16 @@ public class SpawnManager : MonoBehaviour
     private int minForBoss = 10;
 
     //a variable to store a coroutine in
-    Coroutine spawnEnemy;
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        scoreManager = FindFirstObjectByType<ScoreManager>();
+
         //we put it in start method to evoke the coroutine
-        spawnEnemy = StartCoroutine(SpawnEnemies(minForBigEnemies, minForBoss));
+        StartCoroutine(SpawnEnemies(minForBigEnemies, minForBoss));
     }
 
 
@@ -34,7 +35,7 @@ public class SpawnManager : MonoBehaviour
     //the coroutine that spawns enemies under certain conditions
     IEnumerator SpawnEnemies(int minForBigEnemies, int minForBoss)
     {
-       while(scoreManager.score < minForBigEnemies || scoreManager.numberOfKilled < minForBigEnemies)
+       while(scoreManager.score < minForBigEnemies && scoreManager.numberOfKilled < minForBigEnemies)
         {
             SpawnSmallEnemies();
             yield return new WaitForSeconds(2);

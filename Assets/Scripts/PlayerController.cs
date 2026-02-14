@@ -9,7 +9,13 @@ public class PlayerController : MonoBehaviour
     public int damage = 1;
     public Vector3 bulletOffset;
     public bool canShoot = true;
+    private GameManager gameManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Start()
+    {
+        gameManager = FindFirstObjectByType<GameManager>();
+    }
 
 
     // Update is called once per frame
@@ -30,6 +36,17 @@ public class PlayerController : MonoBehaviour
         {
             shootBullets();
         }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            gameManager.Heal(5);
+        }
+        else if (Input.GetKeyDown(KeyCode.V))
+        {
+            gameManager.TakeDamage(10);
+            gameManager.CheckIfDead(gameObject);
+        }
+
 
     }
 

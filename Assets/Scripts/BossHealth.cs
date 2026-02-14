@@ -5,7 +5,10 @@ public class BossHealth : MonoBehaviour
     public int bossHealth = 3;
     private PlayerController playerController;
 
-
+    private void Start()
+    {
+        playerController = FindFirstObjectByType<PlayerController>();
+    }
     public void BossHealthCounter(Collider2D other)
     {
         if (bossHealth > 0)

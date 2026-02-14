@@ -4,13 +4,17 @@ public class PlayerHealth : MonoBehaviour
 {
     public int playerHealth = 3;
     private PlayerController playerController;
+    private GameManager gameManager;
 
-
+    private void Start()
+    {
+        playerController = FindFirstObjectByType<PlayerController>();
+        gameManager = FindFirstObjectByType<GameManager>();
+    }
     public void PlayerHealthCounter(Collider2D other)
     {
         if (playerHealth > 0 && other.gameObject.CompareTag("Enemy"))
         {
-            playerHealth -= playerController.damage;
 
             Debug.Log("Damage! Player health" + (playerHealth));
             Destroy(other.gameObject);
