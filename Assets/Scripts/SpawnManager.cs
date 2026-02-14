@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
     //these two objects are for rotation
     public GameObject enemyPrefab;
     public GameObject enemyBigPrefab;
+    private ScoreManager scoreManager;
     //boss object
     public GameObject bossPrefab;
     //lists for different enemy colors
@@ -18,46 +19,36 @@ public class SpawnManager : MonoBehaviour
 
     //a variable to store a coroutine in
     Coroutine spawnEnemy;
-    
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         //we put it in start method to evoke the coroutine
-        spawnEnemy = StartCoroutine(SpawnEnemies(minForBigEnemies, minForBoss));       
-
+        spawnEnemy = StartCoroutine(SpawnEnemies(minForBigEnemies, minForBoss));
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-
 
 
 
     //the coroutine that spawns enemies under certain conditions
     IEnumerator SpawnEnemies(int minForBigEnemies, int minForBoss)
     {
-       while(ScoreManager.Instance.score < minForBigEnemies || ScoreManager.Instance.numberOfKilled < minForBigEnemies)
+       while(scoreManager.score < minForBigEnemies || scoreManager.numberOfKilled < minForBigEnemies)
         {
             SpawnSmallEnemies();
             yield return new WaitForSeconds(2);
 
         }
-        if (ScoreManager.Instance.score >= minForBigEnemies && ScoreManager.Instance.numberOfKilled >= minForBigEnemies)
+        if (scoreManager.score >= minForBigEnemies && scoreManager.numberOfKilled >= minForBigEnemies)
         {
-            while (ScoreManager.Instance.score >= minForBigEnemies && ScoreManager.Instance.score < minForBoss && ScoreManager.Instance.numberOfKilled >= minForBigEnemies && ScoreManager.Instance.numberOfKilled < minForBoss)
+            while (scoreManager.score >= minForBigEnemies && scoreManager.score < minForBoss && scoreManager.numberOfKilled >= minForBigEnemies && scoreManager.numberOfKilled < minForBoss)
             {
                 SpawnBigEnemies();
                 yield return new WaitForSeconds(2);
             }
 
-            if (ScoreManager.Instance.score >= minForBoss && ScoreManager.Instance.numberOfKilled >= minForBoss)
+            if (scoreManager.score >= minForBoss && scoreManager.numberOfKilled >= minForBoss)
             {
                 SpawnBoss();
             }

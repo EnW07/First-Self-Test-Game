@@ -7,13 +7,10 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     public GameObject bulletPrefab;
     public int damage = 1;
-    public static PlayerController Instance;
     public Vector3 bulletOffset;
     public bool canShoot = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+
 
     // Update is called once per frame
     void Update()
@@ -34,15 +31,6 @@ public class PlayerController : MonoBehaviour
             shootBullets();
         }
 
-    }
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
     }
 
     void sizeIncrease()
